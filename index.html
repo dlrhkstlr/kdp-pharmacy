@@ -1,1 +1,35 @@
-temp
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검단태평양약국 상품위치 안내</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>검단태평양약국 상품 위치 안내</h1>
+        <p id="current-loc">현재 위치: 로딩중...</p>
+    </header>
+
+    <section id="search-section">
+        <input type="text" id="search-input" placeholder="약품명을 입력하세요">
+        <div id="autocomplete"></div>
+    </section>
+
+    <section id="result-section">
+        <!-- 검색 결과 표시 -->
+    </section>
+
+    <section id="map-section">
+        <h2>매장 지도</h2>
+        <canvas id="mapCanvas" width="360" height="480"></canvas>
+    </section>
+
+    <script src="data.js"></script>
+    <script src="main.js"></script>
+
+</body>
+</html>
