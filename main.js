@@ -1,5 +1,5 @@
 // =====================================================================
-// 매장 지도 렌더링 + 상품 검색 기능 통합 JS
+// 매장 지도 렌더링 + 상품 검색 기능 통합 JS (최신 통합본)
 // =====================================================================
 
 // ---------------------------
@@ -37,7 +37,7 @@ function getCurrentLocationFromURL() {
 
 
 // ---------------------------
-// 3. 지도 그리기
+// 3. 지도 그리기 (업그레이드 버전)
 // ---------------------------
 function drawMap() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -45,37 +45,51 @@ function drawMap() {
     ctx.font = "16px Arial";
     ctx.textAlign = "center";
 
-    // ===== 계산대 =====
-    ctx.fillStyle = "#ffebee";
-    ctx.fillRect(50, 100, 80, 300);
-    ctx.strokeRect(50, 100, 80, 300);
+    // ===== 계산대 (왼쪽 세로) =====
+    ctx.fillStyle = "#ffe4e1";
+    ctx.fillRect(40, 100, 90, 300);
+    ctx.strokeRect(40, 100, 90, 300);
     ctx.fillStyle = "#000";
-    ctx.fillText("계산대", 90, 250);
+    ctx.fillText("계산대", 85, 250);
 
-    // ===== 입구 표시 =====
-    ctx.fillStyle = "#ffffcc";
-    ctx.fillRect(300, 20, 100, 30);
+    // ===== 입구 (위) =====
+    ctx.fillStyle = "#f9f9b0";
+    ctx.fillRect(250, 20, 140, 30);
+    ctx.strokeRect(250, 20, 140, 30);
     ctx.fillStyle = "#000";
-    ctx.fillText("입구", 350, 42);
+    ctx.fillText("입구", 320, 42);
 
-    ctx.fillStyle = "#ffffcc";
-    ctx.fillRect(300, 650, 100, 30);
+    // ===== 입구 (아래) =====
+    ctx.fillStyle = "#f9f9b0";
+    ctx.fillRect(250, 650, 140, 30);
+    ctx.strokeRect(250, 650, 140, 30);
     ctx.fillStyle = "#000";
-    ctx.fillText("입구", 350, 672);
+    ctx.fillText("입구", 320, 672);
 
     // ===== 선반 1~10 표시 =====
     for (let i = 1; i <= 10; i++) {
         const pos = shelfPositions[i];
 
+        // 선반 본체
         ctx.fillStyle = "#e7f0ff";
         ctx.fillRect(pos.x - SHELF_WIDTH / 2, pos.y, SHELF_WIDTH, SHELF_HEIGHT);
         ctx.strokeRect(pos.x - SHELF_WIDTH / 2, pos.y, SHELF_WIDTH, SHELF_HEIGHT);
 
+        // 선반 번호
         ctx.fillStyle = "#000";
-        ctx.fillText(`${i}번 선반`, pos.x, pos.y - 5);
+        ctx.fillText(`${i}번 선반`, pos.x, pos.y - 8);
+
+        // 선반의 줄(row) 1~4 표시
+        ctx.font = "12px Arial";
+        ctx.fillStyle = "#444";
+        const baseX = pos.x - SHELF_WIDTH / 2 + 30;
+        for (let r = 1; r <= 4; r++) {
+            ctx.fillText(`줄${r}`, baseX + (r - 1) * 70, pos.y + 22);
+        }
+        ctx.font = "16px Arial";
     }
 
-    // ===== 현재 위치 표시(파란색) =====
+    // ===== 현재 위치 표시(파란 점) =====
     if (currentLocation) {
         const pos = shelfPositions[currentLocation.shelf];
         ctx.fillStyle = "blue";
