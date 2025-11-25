@@ -1,5 +1,5 @@
 // =====================================================================
-// 검단태평양약국 매장 지도 + 상품 검색 통합 스크립트 (tags 검색 + 사람모양 현재위치)
+// 검단태평양약국 매장 지도 + 상품 검색 통합 스크립트 (tags 검색 + 사람모양 현재위치, 강조 버전)
 // =====================================================================
 
 // ---------------------------
@@ -92,34 +92,44 @@ function drawMap() {
     ctx.font = "16px Arial";
   }
 
-  // ===== 현재 위치 표시 (사람 모양) =====
+  // ===== 현재 위치 표시 (사람 모양 + 흰 동그라미 배경) =====
   if (currentLocation) {
     const pos = shelfPositions[currentLocation.shelf];
     if (pos) {
       const cx = pos.x;
       const cy = pos.y + SHELF_HEIGHT / 2;
 
+      // 배경 원 (흰색 + 테두리)
+      ctx.beginPath();
+      ctx.arc(cx, cy, 18, 0, Math.PI * 2);
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#0044cc";
+      ctx.stroke();
+
       // 머리
-      ctx.fillStyle = "blue";
       ctx.beginPath();
-      ctx.arc(cx, cy - 12, 6, 0, Math.PI * 2);
+      ctx.arc(cx, cy - 8, 7, 0, Math.PI * 2);
+      ctx.fillStyle = "#0044cc";
       ctx.fill();
 
-      // 몸통
+      // 몸통 (삼각형)
       ctx.beginPath();
-      ctx.moveTo(cx, cy - 6);
-      ctx.lineTo(cx - 6, cy + 10);
-      ctx.lineTo(cx + 6, cy + 10);
+      ctx.moveTo(cx, cy - 2);
+      ctx.lineTo(cx - 7, cy + 10);
+      ctx.lineTo(cx + 7, cy + 10);
       ctx.closePath();
+      ctx.fillStyle = "#0044cc";
       ctx.fill();
 
-      // 다리 (옵션)
+      // 다리
       ctx.beginPath();
       ctx.moveTo(cx - 3, cy + 10);
       ctx.lineTo(cx - 3, cy + 18);
       ctx.moveTo(cx + 3, cy + 10);
       ctx.lineTo(cx + 3, cy + 18);
-      ctx.strokeStyle = "blue";
+      ctx.strokeStyle = "#0044cc";
       ctx.lineWidth = 2;
       ctx.stroke();
     }
